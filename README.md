@@ -32,7 +32,7 @@ Ouvrir `http://localhost:4200` — redirige automatiquement vers `/login`.
 
 ## Structure
 
-```
+```text
 src/app/
 ├── components/
 │   ├── login/          # Authentification OTP
@@ -51,7 +51,7 @@ src/app/
 ## API Backend attendue
 
 | Méthode | Endpoint | Description |
-|---------|----------|-------------|
+| ------- | -------- | ----------- |
 | POST | `/api/auth/send-otp` | Envoi du code OTP |
 | POST | `/api/auth/verify-otp` | Vérification OTP |
 | GET | `/api/parent/tous-mes-enfants/{telephone}` | Liste des enfants |
