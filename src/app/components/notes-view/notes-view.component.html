@@ -1,0 +1,36 @@
+<div class="notes-container">
+  <div class="header-actions">
+    <button class="btn-back" routerLink="/dashboard">← Retour</button>
+    <h1>Détails des Notes : {{ matricule }}</h1>
+    <button class="btn-pdf" (click)="exportPdf()">
+      <i class="icon-download"></i> Télécharger Bulletin (PDF)
+    </button>
+  </div>
+
+  <div class="table-responsive" *ngIf="!loading">
+    <table class="notes-table">
+      <thead>
+        <tr>
+          <th>Matière (UE)</th>
+          <th>Type</th>
+          <th>Note / 20</th>
+          <th>Semestre</th>
+          <th>Année</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let n of notes" [class.row-rat]="n.type === 'RAT'">
+          <td><strong>{{ n.codeUe }}</strong> - {{ n.matiere }}</td>
+          <td><span class="badge">{{ n.type }}</span></td>
+          <td class="note-value" [class.low-note]="n.note < 10">{{ n.note }}</td>
+          <td>S{{ n.semestre }}</td>
+          <td>{{ n.anneeAcademique }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="notes.length === 0 && !loading" class="empty-state">
+    Aucune note enregistrée pour cet étudiant.
+  </div>
+</div>

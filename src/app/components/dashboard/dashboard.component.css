@@ -1,0 +1,56 @@
+.dashboard-container { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+.dashboard-header { margin-bottom: 2rem; border-bottom: 2px solid #003366; padding-bottom: 1rem; }
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.student-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.student-card:hover { transform: translateY(-5px); }
+
+.card-header {
+  background: #003366;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.avatar {
+  width: 60px; height: 60px;
+  background: #e6b400; /* Couleur Or Saint Jean */
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+  font-weight: bold; font-size: 1.2rem;
+}
+
+.card-body { padding: 1.5rem; color: #444; }
+
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+.btn-notes, .btn-planning {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-notes { background: #003366; color: white; }
+.btn-planning { background: #6c757d; color: white; }
