@@ -1,59 +1,60 @@
-# SuiviParentApp
+# Suivi Académique Parents
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.20.
+Application Angular permettant aux parents de suivre les résultats académiques de leurs enfants via une authentification sécurisée par SMS (OTP).
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- **Frontend** : Angular 20 (standalone components)
+- **Backend** : Spring Boot sur `http://localhost:8080`
+- **Auth** : OTP par SMS, token stocké en localStorage
+
+## Fonctionnalités
+
+- Authentification par numéro de téléphone + code OTP (15 min d'expiration)
+- Dashboard listant tous les enfants du parent connecté
+- Consultation des notes par étudiant
+- Téléchargement du bulletin PDF (JasperReports)
+- Téléchargement de l'emploi du temps par classe
+
+## Prérequis
+
+- Node.js + Angular CLI
+- Backend Spring Boot démarré sur le port 8080 avec CORS autorisé pour `http://localhost:4200`
+
+## Démarrage
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Ouvrir `http://localhost:4200` — redirige automatiquement vers `/login`.
 
-## Code scaffolding
+## Structure
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+src/app/
+├── components/
+│   ├── login/          # Authentification OTP
+│   ├── dashboard/      # Liste des enfants
+│   └── notes-view/     # Notes + téléchargement bulletin
+├── services/
+│   ├── auth.service.ts     # OTP, session
+│   ├── parent.service.ts   # Récupération des enfants
+│   └── student.service.ts  # Notes, bulletin PDF
+├── models/
+│   └── etudiant.model.ts
+└── guards/
+    └── auth.guard.ts   # Protection des routes
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## API Backend attendue
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/auth/send-otp` | Envoi du code OTP |
+| POST | `/api/auth/verify-otp` | Vérification OTP |
+| GET | `/api/parent/tous-mes-enfants/{telephone}` | Liste des enfants |
+| GET | `/api/notes/etudiant/{matricule}` | Notes d'un étudiant |
+| GET | `/api/report/notes/pdf/{matricule}` | Bulletin PDF |
+| GET | `/api/planning/download/{classeId}` | Emploi du temps |
